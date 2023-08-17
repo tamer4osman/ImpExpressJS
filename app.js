@@ -1,16 +1,25 @@
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
-dotenv.config(); // Load variables from .env
+const path = require("path");
+
+dotenv.config();
 
 const port = process.env.PORT || 3000;
 
-const server = app.listen(port, () => {
+app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 
-app.get("/", (req, res) => {
-  res.send("Welcome! You have arrived on the page.");
-});
+app.use(express.static(path.join(__dirname, "public")));
+
+app
+  .route("/")
+  .get((req, res) => {
+    res.send("Welcome!");
+  })
+  .put((req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
+  });
 
 console.log("Hello");
