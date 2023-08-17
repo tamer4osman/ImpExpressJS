@@ -7,10 +7,6 @@ dotenv.config();
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
-
 app.use(express.static(path.join(__dirname, "public")));
 
 app
@@ -20,6 +16,13 @@ app
   })
   .put((req, res) => {
     res.sendFile(path.join(__dirname, "index.html"));
+  })
+  .delete((req, res) => {
+    res.status(202).json({ good: "yep" });
+  });
+
+  app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
   });
 
 console.log("Hello");
